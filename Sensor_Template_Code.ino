@@ -1,6 +1,6 @@
 #include <math.h>
 
-int pin = A0;
+int pin = A9;
 const int R_FIXED = 10000; // 10k fixed resistor
 const float BETA = 3950.0; // Beta value for thermistor
 const float T0 = 298.15;   // 25°C in Kelvin
