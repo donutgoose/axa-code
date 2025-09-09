@@ -1,4 +1,4 @@
-int pin = 2;
+int pin = 2; // Change pin based on analog, Ex. A#
 const int adcMax = 1023; // lowkey forgot what this does
 const float seriesResistor = 10000.0; // 10k Ohm resistor
 const float nominalResistance = 10000.0; // Thermistor resistance at 25°C
