@@ -215,8 +215,10 @@ void loop() {
   collected_data[3] = soil_moisture;
 
   collected_data[4] = temperature;
-  collected_data[5] = altitude;
-  collected_data[6] = pressure_psi;
+  //collected_data[5] = altitude;
+  //collected_data[6] = pressure_psi;
+  collected_data[5] = pressure_psi;  //Better alligns with data csv heading
+  collected_data[6] = altitude; //Better alligns with data csv heading
   unsigned long currentMillis = millis();
   collected_data[7] = (float)currentMillis;
   //collected_data[7] = altitude;
