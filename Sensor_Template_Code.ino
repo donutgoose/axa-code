@@ -12,7 +12,7 @@ void setup() {
 
 float calculateData(int rawData){
     float Vout = rawData * (5.0/1023.0);
-    float Rtherm = R_FIXED * (5.0/Vout-1);
+    float Rtherm = R_FIXED * (Vout/(5-Vout));
 
     float tempK = 1.0 / ( (1.0 / T0) + (1.0 / BETA) * log(Rtherm / R0) );
     float tempC = tempK - 273.15;
