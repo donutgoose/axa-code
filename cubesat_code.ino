@@ -34,7 +34,7 @@ void pump_run() {
 }
 void turnRelayOn() {
   Wire2.beginTransmission(RELAY_I2C_ADDRESS);
-  Wire2.write(0x01);
+  Wire2.write(0x01); // Command to turn relay ON
   Wire2.endTransmission();
 }
 void turnRelayOff() {
@@ -93,13 +93,15 @@ void writeToCSV(float data[8]) {
         file.seek(file.size());
         for (int i = 0; i < 8; i++) {
             file.print(data[i], 6);  // Print float with 6 decimal places
+
+            //Correct me if im wrong, but wouldn't it be <=, now the last 2 elements aren't seperated
             if (i < 6) file.print(",");  // Add a comma except for the last element
         }
         file.println();  // New line for the next entry
         file.close();
-        Serial.println("✅ Data written to data.csv");
+        Serial.println("Data written to data.csv");
     } else {
-        Serial.println("❌ Failed to open data.csv");
+        Serial.println("Failed to open data.csv");
     }
 }
 
