@@ -95,7 +95,7 @@ void writeToCSV(float data[8]) {
             file.print(data[i], 6);  // Print float with 6 decimal places
 
             //Correct me if im wrong, but wouldn't it be <=, now the last 2 elements aren't seperated
-            if (i < 6) file.print(",");  // Add a comma except for the last element
+            if (i < 7) file.print(",");  // Add a comma except for the last element
         }
         file.println();  // New line for the next entry
         file.close();
