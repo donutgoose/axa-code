@@ -1,30 +1,36 @@
-#include <math.h>
+#include <Wire.h>
+#include "SparkFun_SCD4x_Arduino_Library.h"  // Install via Library Manager
 
-int pin = A0;
-const int R_FIXED = 10000; // 10k fixed resistor
-const float BETA = 3950.0; // Beta value for thermistor
-const float T0 = 298.15;   // 25°C in Kelvin
-const float R0 = 10000.0;  // 10kΩ at 25°C
+SCD4x mySensor;  // Create sensor object
 
 void setup() {
   Serial.begin(9600);
-}
+  Wire.begin();
 
-float calculateData(int rawData){
-    float Vout = rawData * (5.0/1023.0);
-    float Rtherm = R_FIXED * (5.0/Vout-1);
+  Serial.println("Starting SCD41 CO2 Sensor...");
 
-    float tempK = 1.0 / ( (1.0 / T0) + (1.0 / BETA) * log(Rtherm / R0) );
-    float tempC = tempK - 273.15;
+  if (!mySensor.begin()) {
+    Serial.println("Sensor not detected. Check wiring!");
+    while (1); // Halt if sensor not found
+  }
 
-    return tempC;
+  if (mySensor.startPeriodicMeasurement()) {
+    Serial.println("Measurement started.");
+  } else {
+    Serial.println("Could not start measurement!");
+  }
 }
 
 void loop() {
-    int rawData = analogRead(pin);
-    float tempC = calculateData(rawData);
-    Serial.print("Temperature: ");
-    Serial.print(tempC);
-
-    delay(1000);
+  // The SCD41 updates about once every 5 seconds
+  if (mySensor.readMeasurement()) {
+    float co2 = mySensor.getCO2();  // <-- Correct accessor
+    if (co2 == 0) {
+      Serial.println("Invalid sample, skipping...");
+    } else {
+      Serial.print("CO2 (ppm): ");
+      Serial.println(co2);
+    }
   }
+  delay(2000);  // check every 2s
+}
