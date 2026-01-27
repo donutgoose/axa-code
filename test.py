@@ -1,0 +1,1 @@
+open('/home/cubesat/Pictures/test/test.txt', 'w+')
