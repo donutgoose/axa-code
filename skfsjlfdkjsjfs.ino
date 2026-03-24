@@ -21,7 +21,8 @@ void setup() {
   delay(1000); // sensor settle
 }
 
-int counter = 0;
+brightness = 0;
+brightness_increment = 5;
 
 void loop() {
 
@@ -33,20 +34,30 @@ void loop() {
   // brightness = map(lux, 0, 200, 10, 255);
   // brightness = constrain(brightness, 10, 255);
 
-  brightness = 255 * (counter % 2);
+
 
   // -------- LED TOGGLE EVERY 2 SECONDS --------
-  if (millis() - lastToggle >= 2000) {
-    lastToggle = millis();
-    ledState = !ledState;
+  //if (millis() - lastToggle >= 2000) {
+  //   lastToggle = millis();
+  //   ledState = !ledState;
+  // }
+
+  // // -------- APPLY OUTPUT --------
+  // if (ledState) {
+  //   analogWrite(LED, brightness);
+  // } else {
+  //   analogWrite(LED, 0);
+  // }
+
+  
+  //delay(1000); // small delay for stability
+  analogWrite(LED, brightness);
+
+  brightness += fadeAmount;
+
+  if (brightness <= 0 || brightness >= 255) {
+    fadeAmount = -fadeAmount;
   }
 
-  // -------- APPLY OUTPUT --------
-  if (ledState) {
-    analogWrite(LED, brightness);
-  } else {
-    analogWrite(LED, 0);
-  }
-
-  delay(1000); // small delay for stability
+  delay(30);
 }
