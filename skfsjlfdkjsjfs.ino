@@ -21,8 +21,8 @@ void setup() {
   delay(1000); // sensor settle
 }
 
-brightness = 0;
-brightness_increment = 5;
+int brightness = 0;
+int brightness_increment = 5;
 
 void loop() {
 
@@ -53,10 +53,10 @@ void loop() {
   //delay(1000); // small delay for stability
   analogWrite(LED, brightness);
 
-  brightness += fadeAmount;
+  brightness += brightness_increment;
 
   if (brightness <= 0 || brightness >= 255) {
-    fadeAmount = -fadeAmount;
+    fadeAmount -= brightness_increment;
   }
 
   delay(30);
